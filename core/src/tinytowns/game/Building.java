@@ -27,15 +27,15 @@ public class Building implements Json.Serializable {
     private String name;
     private String description;
     private Type type;
-    private Material[][] blueprint;
+    private Material[][] pattern;
 
     @Override
     public void write(Json json) {
         json.writeValue("name", name);
         json.writeValue("description", description);
         json.writeValue("type", type.name());
-        json.writeArrayStart("blueprint");
-        for (Material[] row : blueprint) {
+        json.writeArrayStart("pattern");
+        for (Material[] row : pattern) {
             json.writeArrayStart();
             for (Material m : row) {
                 json.writeValue(m.name());
@@ -69,6 +69,6 @@ public class Building implements Json.Serializable {
             }
             i++;
         }
-        blueprint = b;
+        pattern = b;
     }
 }

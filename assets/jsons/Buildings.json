@@ -3,7 +3,7 @@
         "name": "Cottage",
         "description": "{FEED}3{VP} if this {BLUE} is fed.",
         "type": "BLUE",
-        "blueprint": [
+        "pattern": [
             ["EMPTY", "WHEAT"],
             ["BRICK", "GLASS"]
         ]
@@ -13,7 +13,7 @@
         "name": "Farm",
         "description": "Feeds 4 {FEED} buildings anywhere in your town.",
         "type": "RED",
-        "blueprint": [
+        "pattern": [
             ["WHEAT", "WHEAT"],
             ["WOOD", "WOOD"]
         ]
@@ -22,7 +22,7 @@
         "name": "Granary",
         "description": "Feeds all {FEED} buildings in the 8 squares surrounding this {RED}.",
         "type": "RED",
-        "blueprint": [
+        "pattern": [
             ["WHEAT", "WHEAT"],
             ["WOOD", "BRICK"]
         ]
@@ -31,7 +31,7 @@
         "name": "Greenhouse",
         "description": "Feeds 1 contiguous group of {FEED} buildings anywhere in your town.",
         "type": "RED",
-        "blueprint": [
+        "pattern": [
             ["WHEAT", "GLASS"],
             ["WOOD", "WOOD"]
         ]
@@ -40,7 +40,7 @@
         "name": "Orchard",
         "description": "Feeds all {FEED} buildings in the same row and column as this {RED}.",
         "type": "RED",
-        "blueprint": [
+        "pattern": [
             ["STONE", "WHEAT"],
             ["WHEAT", "WOOD"]
         ]
@@ -50,7 +50,7 @@
         "name": "Fountain",
         "description": "2{VP} if adjacent to another {GRAY}.",
         "type": "GRAY",
-        "blueprint": [
+        "pattern": [
             ["WOOD", "STONE"]
         ]
     },
@@ -58,7 +58,7 @@
         "name": "Millstone",
         "description": "2{VP} if adjacent to {AAN} {RED} or {AAN} {YELLOW}.",
         "type": "GRAY",
-        "blueprint": [
+        "pattern": [
             ["WOOD", "STONE"]
         ]
     },
@@ -66,7 +66,7 @@
         "name": "Shed",
         "description": "1{VP}. May be constructed on any empty square in your town.",
         "type": "GRAY",
-        "blueprint": [
+        "pattern": [
             ["WOOD", "STONE"]
         ]
     },
@@ -74,7 +74,7 @@
         "name": "Well",
         "description": "1{VP} for each adjacent {BLUE}.",
         "type": "GRAY",
-        "blueprint": [
+        "pattern": [
             ["WOOD", "STONE"]
         ]
     },
@@ -83,7 +83,7 @@
         "name": "Abbey",
         "description": "3{VP} if not adjacent to any {PURPLE}{PLURAL}, {GREEN}{PLURAL}, or {YELLOW}{PLURAL}.",
         "type": "ORANGE",
-        "blueprint": [
+        "pattern": [
             ["EMPTY", "EMPTY", "GLASS"],
             ["BRICK", "STONE", "STONE"]
         ]
@@ -92,7 +92,7 @@
         "name": "Chapel",
         "description": "1{VP} for each fed {BLUE}.",
         "type": "ORANGE",
-        "blueprint": [
+        "pattern": [
             ["EMPTY", "EMPTY", "GLASS"],
             ["STONE", "GLASS", "STONE"]
         ]
@@ -101,7 +101,7 @@
         "name": "Cloister",
         "description": "1{VP} for each {ORANGE} in a corner of your town.",
         "type": "ORANGE",
-        "blueprint": [
+        "pattern": [
             ["EMPTY", "EMPTY", "GLASS"],
             ["WOOD", "BRICK", "STONE"]
         ]
@@ -110,7 +110,7 @@
         "name": "Temple",
         "description": "4{VP} if adjacent to 2 or more fed {BLUE}{PLURAL}.",
         "type": "ORANGE",
-        "blueprint": [
+        "pattern": [
             ["EMPTY", "EMPTY", "GLASS"],
             ["BRICK", "BRICK", "STONE"]
         ]
@@ -120,7 +120,7 @@
         "name": "Almshouse",
         "description": "{VP} based on your constructed {GREEN}{PLURAL}.\n{TABLE}{7}#\\1\\2\\3\\4\\5\\6+\\{VP}\\-1\\5\\-3\\15\\-5\\26",
         "type": "GREEN",
-        "blueprint": [
+        "pattern": [
             ["STONE", "STONE", "GLASS"]
         ]
     },
@@ -128,7 +128,7 @@
         "name": "Feast Hall",
         "description": "2{VP}. +1{VP} if you have more {GREEN}{PLURAL} than the player on your right.",
         "type": "GREEN",
-        "blueprint": [
+        "pattern": [
             ["WOOD", "WOOD", "GLASS"]
         ]
     },
@@ -136,7 +136,7 @@
         "name": "Inn",
         "description": "3{VP} there are no other {GREEN}{PLURAL} in the same row or column as this {GREEN}.",
         "type": "GREEN",
-        "blueprint": [
+        "pattern": [
             ["WHEAT", "STONE", "GLASS"]
         ]
     },
@@ -144,7 +144,7 @@
         "name": "Tavern",
         "description": "{VP} based on your constructed {GREEN}{PLURAL}.\n{TABLE}{6}#\\1\\2\\3\\4\\5+\\{VP}\\2\\5\\9\\14\\20",
         "type": "GREEN",
-        "blueprint": [
+        "pattern": [
             ["BRICK", "BRICK", "GLASS"]
         ]
     },
@@ -153,7 +153,7 @@
         "name": "Bakery",
         "description": "3{VP} if adjacent to {AAN} {RED} or {AAN} {PURPLE}.",
         "type": "YELLOW",
-        "blueprint": [
+        "pattern": [
             ["EMPTY", "WHEAT", "EMPTY"],
             ["BRICK", "GLASS", "BRICK"]
         ]
@@ -162,7 +162,7 @@
         "name": "Market",
         "description": "1{VP} for each {YELLOW} in the same row or column, but not both, as this {YELLOW}. (This includes itself.)",
         "type": "YELLOW",
-        "blueprint": [
+        "pattern": [
             ["EMPTY", "WOOD", "EMPTY"],
             ["STONE", "GLASS", "STONE"]
         ]
@@ -171,7 +171,7 @@
         "name": "Tailor",
         "description": "1{VP}. +1{VP} for each {YELLOW} in the 4 center squares in your town.",
         "type": "YELLOW",
-        "blueprint": [
+        "pattern": [
             ["EMPTY", "WHEAT", "EMPTY"],
             ["STONE", "GLASS", "STONE"]
         ]
@@ -180,7 +180,7 @@
         "name": "Theater",
         "description": "1{VP} for each other unique building type in the same row and column as this {YELLOW}.",
         "type": "YELLOW",
-        "blueprint": [
+        "pattern": [
             ["EMPTY", "STONE", "EMPTY"],
             ["WOOD", "GLASS", "WOOD"]
         ]
@@ -190,7 +190,7 @@
         "name": "Bank",
         "description": "4{VP}. When constructed, choose a resource that you haven't yet chosen for a {PURPLE}.\nAs Master Builder, you can't name a resource you've chosen for a {PURPLE}.",
         "type": "PURPLE",
-        "blueprint": [
+        "pattern": [
             ["WHEAT", "WHEAT", "EMPTY"],
             ["WOOD", "GLASS", "BRICK"]
         ]
@@ -199,7 +199,7 @@
         "name": "Factory",
         "description": "When constructed, choose a resource.\nWhen another player names the chosen resource, you may place a different resource instead.",
         "type": "PURPLE",
-        "blueprint": [
+        "pattern": [
             ["WOOD", "EMPTY", "EMPTY", "EMPTY"],
             ["BRICK", "STONE", "STONE", "BRICK"]
         ]
@@ -208,7 +208,7 @@
         "name": "Trading Post",
         "description": "1{VP}. You may treat this {PURPLE}'s space as any resource for future buildings.",
         "type": "PURPLE",
-        "blueprint": [
+        "pattern": [
             ["STONE", "WOOD", "EMPTY"],
             ["STONE", "WOOD", "BRICK"]
         ]
@@ -217,7 +217,7 @@
         "name": "Warehouse",
         "description": "-1{VP} for each resource stored in this {PURPLE}.\nThis {PURPLE} can store up to 3 resources. When another player names a resource, you can, instead of placing it, store it in this {PURPLE}, or swap it with another resource stored in this {PURPLE} (and place that resource instead).",
         "type": "PURPLE",
-        "blueprint": [
+        "pattern": [
             ["WHEAT", "WOOD", "WHEAT"],
             ["BRICK", "EMPTY", "BRICK"]
         ]
@@ -227,7 +227,7 @@
         "name": "Architect's Guild",
         "description": "1{VP}. When constructed, replace up to 2 other buildings in your town with any other building types.",
         "type": "PINK",
-        "blueprint": [
+        "pattern": [
             ["EMPTY", "EMPTY", "GLASS"],
             ["EMPTY", "WHEAT", "STONE"],
             ["WOOD", "BRICK", "EMPTY"]
@@ -237,7 +237,7 @@
         "name": "Archive of the Second Age",
         "description": "1{VP} for each unique building type, other than {PINK}, in your town.",
         "type": "PINK",
-        "blueprint": [
+        "pattern": [
             ["WHEAT", "WHEAT"],
             ["BRICK", "GLASS"]
         ]
@@ -246,7 +246,7 @@
         "name": "Barrett Castle",
         "description": "{FEED}5{VP} if fed. Counts as 2 {BLUE}{PLURAL}.",
         "type": "PINK",
-        "blueprint": [
+        "pattern": [
             ["WHEAT", "EMPTY", "EMPTY", "STONE"],
             ["WOOD", "GLASS", "GLASS", "BRICK"]
         ]
@@ -255,7 +255,7 @@
         "name": "Cathedral of Caterina",
         "description": "2{VP}. Empty squares in your town are worth 0{VP}, instead of -1{VP}.",
         "type": "PINK",
-        "blueprint": [
+        "pattern": [
             ["EMPTY", "WHEAT"],
             ["STONE", "GLASS"]
         ]
@@ -264,7 +264,7 @@
         "name": "Fort Ironweed",
         "description": "7{VP}. Unless you are the last player in the game, you can't take turns as Master Builder.",
         "type": "PINK",
-        "blueprint": [
+        "pattern": [
             ["WHEAT", "EMPTY", "BRICK"],
             ["STONE", "WOOD", "STONE"]
         ]
@@ -273,7 +273,7 @@
         "name": "Grand Mausoleum of the Rodina",
         "description": "Your unfed {BLUE}{PLURAL} are worth 3{VP} each.",
         "type": "PINK",
-        "blueprint": [
+        "pattern": [
             ["WOOD", "WOOD"],
             ["BRICK", "STONE"]
         ]
@@ -282,7 +282,7 @@
         "name": "Grove University",
         "description": "3{VP}. Immediately place a building on an empty square in your town.",
         "type": "PINK",
-        "blueprint": [
+        "pattern": [
             ["EMPTY", "BRICK", "EMPTY"],
             ["STONE", "GLASS", "STONE"]
         ]
@@ -291,7 +291,7 @@
         "name": "Mandras Palace",
         "description": "2{VP} for each unique adjacent building type.",
         "type": "PINK",
-        "blueprint": [
+        "pattern": [
             ["WHEAT", "GLASS"],
             ["BRICK", "WOOD"]
         ]
@@ -300,7 +300,7 @@
         "name": "Obelisk of the Crescent",
         "description": "You may place all future buildings on any empty square in your town.",
         "type": "PINK",
-        "blueprint": [
+        "pattern": [
             ["WHEAT", "EMPTY", "EMPTY"],
             ["BRICK", "GLASS", "BRICK"]
         ]
@@ -309,7 +309,7 @@
         "name": "Opaleye's Watch",
         "description": "When constructed, set aside 3 buildings of different types. Whenever a player on your immediate left or right constructs a building of a type that you have set aside, place that building on an empty square in your town.",
         "type": "PINK",
-        "blueprint": [
+        "pattern": [
             ["WOOD", "EMPTY", "EMPTY", "EMPTY"],
             ["BRICK", "GLASS", "WHEAT", "WHEAT"],
             ["STONE", "EMPTY", "EMPTY", "EMPTY"]
@@ -319,7 +319,7 @@
         "name": "Shrine of the Elder Tree",
         "description": "{VP} based on the number of buldings in your town when constructed (including this building).\n{TABLE}{7}#\\1\\2\\3\\4\\5\\6+\\{VP}\\1\\2\\3\\4\\5\\8",
         "type": "PINK",
-        "blueprint": [
+        "pattern": [
             ["BRICK", "WHEAT", "STONE"],
             ["WOOD", "GLASS", "WOOD"]
         ]
@@ -328,7 +328,7 @@
         "name": "Silva Forum",
         "description": "1{VP}. +1{VP} for each building in the largest contiguous group of buildings of the same type in your town.",
         "type": "PINK",
-        "blueprint": [
+        "pattern": [
             ["EMPTY", "EMPTY", "WHEAT", "EMPTY"],
             ["BRICK", "BRICK", "STONE", "WOOD"]
         ]
@@ -337,7 +337,7 @@
         "name": "Statue of the Bondmaker",
         "description": "When another player names a resource, you may, instead of placing it, store it in one of your {BLUE}{PLURAL}. Each of your {BLUE}{PLURAL} can store 1 resource.",
         "type": "PINK",
-        "blueprint": [
+        "pattern": [
             ["WOOD", "STONE", "STONE", "GLASS"],
             ["WHEAT", "EMPTY", "EMPTY", "EMPTY"]
         ]
@@ -346,7 +346,7 @@
         "name": "The Sky Baths",
         "description": "2{VP} for each building type your town doesn't have.",
         "type": "PINK",
-        "blueprint": [
+        "pattern": [
             ["EMPTY", "WHEAT", "EMPTY"],
             ["STONE", "GLASS", "WOOD"],
             ["BRICK", "EMPTY", "BRICK"]
@@ -356,7 +356,7 @@
         "name": "The Starloom",
         "description": "{VP} based on when you complete your town.\n{TABLE}{5}#\\1st\\2nd\\3rd\\4th+\\{VP}\\6\\3\\2\\0",
         "type": "PINK",
-        "blueprint": [
+        "pattern": [
             ["GLASS", "GLASS"],
             ["WOOD", "WHEAT"]
         ]
