@@ -1,7 +1,6 @@
 package tinytowns.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen; 
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,12 +13,14 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import tinytowns.game.TinyTowns;
 
-public class MainMenuScreen implements Screen {
+public class MainMenuScreen extends AbstractScreen {
 	private Stage stage;
-	private TinyTowns game;
 
 	public MainMenuScreen(TinyTowns game) {
-		this.game = game;
+		super(game);
+
+		Gdx.graphics.setContinuousRendering(false);
+		Gdx.graphics.requestRendering();
 
 		Skin skin = new Skin(Gdx.files.internal("holoui/Holo-light-ldpi.json"));
 
@@ -33,12 +34,33 @@ public class MainMenuScreen implements Screen {
 
 		root.row();
 		TextButton multiplayerButton = new TextButton("Find or host a game", skin);
-		multiplayerButton.addListener(new MultiplayerButtonListener());
+		multiplayerButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				game.setScreen(new ConnectMenuScreen(game));
+				dispose();
+			}
+		});
 		root.add(multiplayerButton);
 
 		root.row();
+		TextButton singleplayerButton = new TextButton("Singleplayer", skin);
+		singleplayerButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				game.setScreen(new SingleplayerMenuScreen(game));
+				dispose();
+			}
+		});
+
+		root.row();
 		TextButton quitButton = new TextButton("Quit game", skin);
-		quitButton.addListener(new QuitButtonListener());
+		quitButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				Gdx.app.exit();
+			}
+		});
 		root.add(quitButton);
 	}
 
@@ -51,37 +73,7 @@ public class MainMenuScreen implements Screen {
 	}
 
 	@Override
-    public void resize(int width, int height) {}
-
-    @Override
-    public void pause() {}
-
-    @Override
-    public void resume() {}
-
-    @Override
-    public void show() {}
-
-    @Override
-    public void hide() {}
-
-    @Override
     public void dispose() {
         stage.dispose();
     }
-
-	private class MultiplayerButtonListener extends ChangeListener {
-		@Override
-		public void changed(ChangeEvent event, Actor actor) {
-			game.setScreen(new ConnectScreen(game));
-			dispose();
-		}
-	}
-
-	private class QuitButtonListener extends ChangeListener {
-		@Override
-		public void changed(ChangeEvent event, Actor actor) {
-			Gdx.app.exit();
-		}
-	}
 }
