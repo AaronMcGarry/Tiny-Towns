@@ -1,5 +1,9 @@
-plugins { id 'org.beryx.runtime' version '1.8.4' }
-sourceCompatibility = 1.8
+plugins {
+    id("com.google.osdetector").version("1.7.3")
+    id 'org.beryx.runtime' version '1.8.4'
+}
+
+sourceCompatibility = 1.11
 sourceSets.main.java.srcDirs = [ "src/" ]
 sourceSets.main.resources.srcDirs = ["../assets"]
 
@@ -62,4 +66,6 @@ runtime {
                'java.desktop',
                'jdk.unsupported']
     distDir = file(buildDir)
+
+    jpackage {}
 }
