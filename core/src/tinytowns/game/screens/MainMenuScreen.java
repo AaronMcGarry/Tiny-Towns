@@ -48,8 +48,7 @@ public class MainMenuScreen extends AbstractScreen {
 		singleplayerButton.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				game.setScreen(new SingleplayerMenuScreen(game));
-				dispose();
+				
 			}
 		});
 
