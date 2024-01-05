@@ -1,0 +1,1 @@
+This is not my game or my IP; that goes to Peter McPherson and Alderac Entertainment Group. I just thought it would be fun to try to recreate Tiny Towns as a video game. I'm not making any money from this project and I never intend to.
