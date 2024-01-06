@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -30,6 +29,7 @@ public abstract class MenuScreen extends AbstractScreen {
     private SpriteBatch batch;
     private java.util.Random r;
     private float rotation;
+    private int screenHeight;
 
     public MenuScreen(TinyTowns game) {
         super(game);
@@ -54,6 +54,7 @@ public abstract class MenuScreen extends AbstractScreen {
         spawnedBuildings = new ObjectIntMap<>();
         batch = new SpriteBatch();
         r = new Random();
+        screenHeight = Gdx.graphics.getHeight();
     }
 
     @Override
@@ -73,7 +74,7 @@ public abstract class MenuScreen extends AbstractScreen {
         if (sinceLastSpawn >= 1) {
             int rand = r.nextInt(buildings.size);
             Texture texture = buildings.get(rand);
-            spawnedBuildings.put(new Rectangle(-100, r.nextInt(50, Gdx.graphics.getHeight()-100), texture.getWidth() , texture.getHeight()), rand);
+            spawnedBuildings.put(new Rectangle(-100, r.nextInt(50, screenHeight-100), texture.getWidth() , texture.getHeight()), rand);
             sinceLastSpawn--;
         }
 

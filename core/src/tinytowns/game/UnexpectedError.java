@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class UnexpectedError extends ApplicationAdapter {
@@ -40,7 +41,9 @@ public class UnexpectedError extends ApplicationAdapter {
 		Table root = new Table();
 		root.setFillParent(true);
 		stage.addActor(root);
-        root.add(new Label("An unexpected error occurred.\nOpen the file at " + Gdx.files.getExternalStoragePath() + "TinyTownsErrorLogs" + fileSeparator + "log" + i + ".txt" + " for more information.", skin));
+        Label message = new Label("An unexpected error occurred.\nOpen the file at " + Gdx.files.getExternalStoragePath() + "TinyTownsErrorLogs" + fileSeparator + "log" + i + ".txt for more information.", skin);
+        message.setAlignment(Align.center);
+        root.add(message);
     }
 
     @Override

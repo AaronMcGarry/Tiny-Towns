@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.github.alexdlaird.exception.NgrokException;
 import com.github.alexdlaird.ngrok.NgrokClient;
@@ -46,7 +47,10 @@ public class ConnectMenuScreen extends MenuScreen {
 		joinServerButton.setDisabled(true);
 		backButton.addListener(new BackToMainMenuListener());
 
-		root.add(new Label("Enter the developer's one and only ngrok authtoken to start the server, or ask the server owner for the randomly-generated URL.", skin));
+		Label instructions = new Label("Enter the developer's one and only ngrok authtoken to start the server, or ask the server owner for the randomly generated URL.", skin);
+		instructions.setAlignment(Align.center);
+		instructions.setWrap(true);
+		root.add(instructions).width(350).colspan(2);
 		root.row();
 		root.add(new Label("Token:", skin));
 		root.add(tokenField);
@@ -92,7 +96,10 @@ public class ConnectMenuScreen extends MenuScreen {
 				//dispose();
 			} catch (NgrokException ne) {
 				Table popup = startPopup();
-				popup.add(new Label("Connection failed\nMake sure you entered the authtoken correctly, and that you're the first one on the server.", skin));
+				Label message = new Label("Connection failed\nMake sure you entered the authtoken correctly, and that you're the first one on the server.", skin);
+				message.setAlignment(Align.center);
+				message.setWrap(true);
+				popup.add(message).width(400);
 				popup.row();
 				TextButton backButton = new TextButton("OK", skin);
 				backButton.addListener(new PopupBackButtonListener(popup));
@@ -126,7 +133,10 @@ public class ConnectMenuScreen extends MenuScreen {
 						//dispose();
 					} catch (GdxRuntimeException gre) {
 						Table popup = startPopup();
-						popup.add(new Label("Connection failed\nMake sure your URL is correct, and that someone else started the server.", skin));
+						Label message = new Label("Connection failed\nMake sure your URL is correct, and that someone else started the server.", skin);
+						message.setWrap(true);
+						message.setAlignment(Align.center);
+						popup.add(message).width(400);
 						popup.row();
 						TextButton backButton = new TextButton("OK", skin);
 						backButton.addListener(new PopupBackButtonListener(popup));
