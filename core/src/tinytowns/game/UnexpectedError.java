@@ -13,14 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.github.alexdlaird.ngrok.NgrokClient;
 
 public class UnexpectedError extends ApplicationAdapter {
-    private Exception exception;
+    public Exception exception;
+    public NgrokClient client;
     private Stage stage;
-
-    public UnexpectedError(Exception e) {
-        exception = e;
-    }
 
     @Override
     public void create() {
@@ -56,6 +54,8 @@ public class UnexpectedError extends ApplicationAdapter {
 
     @Override
     public void dispose() {
+        if (client != null)
+            client.kill();
         stage.dispose();
     }
 }
