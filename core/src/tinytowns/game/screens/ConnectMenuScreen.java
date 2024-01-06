@@ -2,20 +2,16 @@ package tinytowns.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.net.Socket;
 import com.badlogic.gdx.net.SocketHints;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.github.alexdlaird.exception.NgrokException;
 import com.github.alexdlaird.ngrok.NgrokClient;
 import com.github.alexdlaird.ngrok.conf.JavaNgrokConfig;
@@ -25,10 +21,7 @@ import com.github.alexdlaird.ngrok.protocol.Tunnel;
 
 import tinytowns.game.TinyTowns;
 
-public class ConnectMenuScreen extends AbstractScreen {
-	private Skin skin;
-
-	private Stage stage;
+public class ConnectMenuScreen extends MenuScreen {
 	private Table root;
 	private TextField tokenField;
 	private TextField urlField;
@@ -36,10 +29,6 @@ public class ConnectMenuScreen extends AbstractScreen {
 	public ConnectMenuScreen(TinyTowns game) {
 		super(game);
 
-		skin = new Skin(Gdx.files.internal("holoui-light/Holo-light-ldpi.json"));
-
-		stage = new Stage(new ScreenViewport());
-		Gdx.input.setInputProcessor(stage);
 		root = new Table();
 		root.setFillParent(true);
 		stage.addActor(root);
@@ -70,20 +59,6 @@ public class ConnectMenuScreen extends AbstractScreen {
 		root.add(backButton);
 	}
 
-	@Override
-	public void render(float delta) {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stage.act();
-		stage.draw();
-	}
-
-    @Override
-    public void dispose() {
-        stage.dispose();
-		skin.dispose();
-    }
-
 	private Table startPopup() {
 		root.setTouchable(Touchable.disabled);
 		root.setColor(0f, 0f, 0f , 0.2f);
@@ -113,8 +88,8 @@ public class ConnectMenuScreen extends AbstractScreen {
 					.build();
 				Tunnel tunnel = client.connect(createTunnel);
 				game.setNgrokClient(client);
-				game.setScreen(new LobbyHostScreen(game, tunnel.getPublicUrl()));
-				dispose();
+				//game.setScreen(new LobbyHostScreen(game, tunnel.getPublicUrl()));
+				//dispose();
 			} catch (NgrokException ne) {
 				Table popup = startPopup();
 				popup.add(new Label("Connection failed\nMake sure you entered the authtoken correctly, and that you're the first one on the server.", skin));
@@ -147,8 +122,8 @@ public class ConnectMenuScreen extends AbstractScreen {
 						SocketHints hints = new SocketHints();
 						hints.connectTimeout = 4000; //4 seconds
 						Socket socket = Gdx.net.newClientSocket(Protocol.TCP, splitUrl[0], Integer.parseInt(splitUrl[1]), hints);
-						game.setScreen(new LobbyClientScreen(game, socket));
-						dispose();
+						//game.setScreen(new LobbyClientScreen(game, socket));
+						//dispose();
 					} catch (GdxRuntimeException gre) {
 						Table popup = startPopup();
 						popup.add(new Label("Connection failed\nMake sure your URL is correct, and that someone else started the server.", skin));
