@@ -58,14 +58,11 @@ public class ConnectMenuScreen extends MenuScreen {
 		root.add(backButton);
 	}
 
-	private Table startPopup() {
-		root.setTouchable(Touchable.disabled);
-		root.setColor(0f, 0f, 0f , 0.2f);
+	@Override
+	protected Table startPopup() {
+		Table popup = super.startPopup();
 		tokenField.setDisabled(true);
 		urlField.setDisabled(true);
-		Table popup = new Table();
-		popup.setFillParent(true);
-		stage.addActor(popup);
 		return popup;
 	}
 

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
@@ -60,6 +61,15 @@ public abstract class MenuScreen extends AbstractScreen {
         batch = new SpriteBatch();
         r = new Random();
         screenHeight = Gdx.graphics.getHeight();
+    }
+
+    protected Table startPopup() {
+		root.setTouchable(Touchable.disabled);
+		root.setColor(0f, 0f, 0f , 0.2f);
+		Table popup = new Table();
+		popup.setFillParent(true);
+		stage.addActor(popup);
+		return popup;
     }
 
     @Override
