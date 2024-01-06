@@ -23,16 +23,11 @@ import com.github.alexdlaird.ngrok.protocol.Tunnel;
 import tinytowns.game.TinyTowns;
 
 public class ConnectMenuScreen extends MenuScreen {
-	private Table root;
 	private TextField tokenField;
 	private TextField urlField;
 
 	public ConnectMenuScreen(TinyTowns game) {
 		super(game);
-
-		root = new Table();
-		root.setFillParent(true);
-		stage.addActor(root);
 
 		tokenField = new TextField("", skin);
 		urlField = new TextField("", skin);
@@ -92,8 +87,8 @@ public class ConnectMenuScreen extends MenuScreen {
 					.build();
 				Tunnel tunnel = client.connect(createTunnel);
 				game.setNgrokClient(client);
-				//game.setScreen(new LobbyHostScreen(game, tunnel.getPublicUrl()));
-				//dispose();
+				game.setScreen(new LobbyHostScreen(game, tunnel.getPublicUrl()));
+				dispose();
 			} catch (NgrokException ne) {
 				Table popup = startPopup();
 				Label message = new Label("Connection failed\nMake sure you entered the authtoken correctly, and that you're the first one on the server.", skin);

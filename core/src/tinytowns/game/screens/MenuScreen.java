@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectIntMap;
 import com.badlogic.gdx.utils.ObjectIntMap.Entry;
@@ -21,6 +22,7 @@ import tinytowns.game.TinyTowns;
 public abstract class MenuScreen extends AbstractScreen {
     protected Skin skin;
     protected Stage stage;
+    protected Table root;
 
     private Array<Texture> buildings;
     private ObjectIntMap<Rectangle> spawnedBuildings;
@@ -37,6 +39,9 @@ public abstract class MenuScreen extends AbstractScreen {
         skin = new Skin(Gdx.files.internal("holoui-light/Holo-light-ldpi.json"));
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
+        root = new Table();
+		root.setFillParent(true);
+		stage.addActor(root);
 
         Gdx.graphics.setContinuousRendering(true);
         buildings = new Array<>();
