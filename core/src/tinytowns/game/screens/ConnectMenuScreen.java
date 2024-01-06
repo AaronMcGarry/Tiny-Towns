@@ -1,15 +1,8 @@
 package tinytowns.game.screens;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.net.ServerSocket;
-import com.badlogic.gdx.net.ServerSocketHints;
 import com.badlogic.gdx.net.Socket;
 import com.badlogic.gdx.net.SocketHints;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -28,6 +21,7 @@ import com.github.alexdlaird.ngrok.NgrokClient;
 import com.github.alexdlaird.ngrok.conf.JavaNgrokConfig;
 import com.github.alexdlaird.ngrok.protocol.CreateTunnel;
 import com.github.alexdlaird.ngrok.protocol.Proto;
+import com.github.alexdlaird.ngrok.protocol.Tunnel;
 
 import tinytowns.game.TinyTowns;
 
@@ -42,7 +36,7 @@ public class ConnectMenuScreen extends AbstractScreen {
 	public ConnectMenuScreen(TinyTowns game) {
 		super(game);
 
-		skin = new Skin(Gdx.files.internal("holoui/Holo-light-ldpi.json"));
+		skin = new Skin(Gdx.files.internal("holoui-light/Holo-light-ldpi.json"));
 
 		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
@@ -90,33 +84,22 @@ public class ConnectMenuScreen extends AbstractScreen {
 		skin.dispose();
     }
 
+	private Table startPopup() {
+		root.setTouchable(Touchable.disabled);
+		root.setColor(0f, 0f, 0f , 0.2f);
+		tokenField.setDisabled(true);
+		urlField.setDisabled(true);
+		Table popup = new Table();
+		popup.setFillParent(true);
+		stage.addActor(popup);
+		return popup;
+	}
+
 	//private classes to avoid nested listeners
 
 	private class StartServerButtonListener extends ChangeListener {
 		@Override
 		public void changed(ChangeEvent event, Actor actor) {
-			new Thread(new Runnable() {
-				public void run() {
-					ServerSocketHints hints = new ServerSocketHints();
-					hints.acceptTimeout = 300000; //5 minutes
-					ServerSocket ss = Gdx.net.newServerSocket(Protocol.TCP, 9021, hints);
-					Socket socket = null;
-					try {
-						socket = ss.accept(null);
-					} catch (GdxRuntimeException e) {
-						e.printStackTrace();
-					}
-					BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-					PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-					out.println("message from server");
-					try {
-						System.out.println("the client said:" + in.readLine());
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}).start();
-
 			try {
 				JavaNgrokConfig config = new JavaNgrokConfig.Builder()
 					.withAuthToken(tokenField.getText())
@@ -128,19 +111,15 @@ public class ConnectMenuScreen extends AbstractScreen {
 					.withProto(Proto.TCP)
 					.withAddr(9021)
 					.build();
-				client.connect(createTunnel);
+				Tunnel tunnel = client.connect(createTunnel);
+				game.setNgrokClient(client);
+				game.setScreen(new LobbyHostScreen(game, tunnel.getPublicUrl()));
+				dispose();
 			} catch (NgrokException ne) {
-				root.setTouchable(Touchable.disabled);
-				root.setColor(0f, 0f, 0f , 0.2f);
-				tokenField.setDisabled(true);
-				urlField.setDisabled(true);
-				Table popup = new Table();
-				popup.setFillParent(true);
-				stage.addActor(popup);
-
+				Table popup = startPopup();
 				popup.add(new Label("Connection failed\nMake sure you entered the authtoken correctly, and that you're the first one on the server.", skin));
 				popup.row();
-				TextButton backButton = new TextButton("Try again", skin);
+				TextButton backButton = new TextButton("OK", skin);
 				backButton.addListener(new PopupBackButtonListener(popup));
 				popup.add(backButton);
 			}
@@ -150,27 +129,38 @@ public class ConnectMenuScreen extends AbstractScreen {
 	private class JoinServerButtonListener extends ChangeListener {
 		@Override
 		public void changed(ChangeEvent event, Actor actor) {
-			new Thread(new Runnable() {
+			String[] splitUrl = urlField.getText().split(":");
+			if (splitUrl.length != 2) {
+				Table popup = startPopup();
+				popup.add(new Label("Your URL was formatted incorrectly.", skin));
+				popup.row();
+				TextButton backButton = new TextButton("OK", skin);
+				backButton.addListener(new PopupBackButtonListener(popup));
+				popup.add(backButton);
+				return;
+			}
+
+			Thread connectToServer = new Thread() {
+				@Override
 				public void run() {
-					SocketHints hints = new SocketHints();
-					hints.connectTimeout = 4000; //4 seconds
-					Socket socket = null;
 					try {
-						String[] splitUrl = urlField.getText().split(":");
-						socket = Gdx.net.newClientSocket(Protocol.TCP, splitUrl[0], Integer.parseInt(splitUrl[1]), hints);
-					} catch (GdxRuntimeException e) {
-						e.printStackTrace();
-					}
-					BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-					PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-					out.println("message from client");
-					try {
-						System.out.println("the server said:" + in.readLine());
-					} catch (IOException e) {
-						e.printStackTrace();
+						SocketHints hints = new SocketHints();
+						hints.connectTimeout = 4000; //4 seconds
+						Socket socket = Gdx.net.newClientSocket(Protocol.TCP, splitUrl[0], Integer.parseInt(splitUrl[1]), hints);
+						game.setScreen(new LobbyClientScreen(game, socket));
+						dispose();
+					} catch (GdxRuntimeException gre) {
+						Table popup = startPopup();
+						popup.add(new Label("Connection failed\nMake sure your URL is correct, and that someone else started the server.", skin));
+						popup.row();
+						TextButton backButton = new TextButton("OK", skin);
+						backButton.addListener(new PopupBackButtonListener(popup));
+						popup.add(backButton);
 					}
 				}
-			}).start();
+			};
+			connectToServer.setDaemon(true);
+			connectToServer.start();
 		}
 	}
 
