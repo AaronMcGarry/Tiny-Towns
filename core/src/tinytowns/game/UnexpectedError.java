@@ -22,6 +22,9 @@ public class UnexpectedError extends ApplicationAdapter {
 
     @Override
     public void create() {
+        if (client != null)
+            client.kill();
+        
         Gdx.graphics.setContinuousRendering(false);
         Gdx.graphics.requestRendering();
 
@@ -54,8 +57,6 @@ public class UnexpectedError extends ApplicationAdapter {
 
     @Override
     public void dispose() {
-        if (client != null)
-            client.kill();
         stage.dispose();
     }
 }
