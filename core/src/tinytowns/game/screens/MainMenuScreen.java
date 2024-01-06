@@ -22,7 +22,7 @@ public class MainMenuScreen extends AbstractScreen {
 		Gdx.graphics.setContinuousRendering(false);
 		Gdx.graphics.requestRendering();
 
-		Skin skin = new Skin(Gdx.files.internal("holoui/Holo-light-ldpi.json"));
+		Skin skin = new Skin(Gdx.files.internal("holoui-light/Holo-light-ldpi.json"));
 
 		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
