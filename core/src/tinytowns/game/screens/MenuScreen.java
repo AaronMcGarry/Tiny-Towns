@@ -9,10 +9,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectIntMap;
 import com.badlogic.gdx.utils.ObjectIntMap.Entry;
@@ -71,6 +73,21 @@ public abstract class MenuScreen extends AbstractScreen {
 		stage.addActor(popup);
 		return popup;
     }
+
+    protected class PopupBackButtonListener extends ChangeListener {
+		protected Table popup;
+
+		public PopupBackButtonListener(Table popup) {
+			this.popup = popup;
+		}
+
+		@Override
+		public void changed(ChangeEvent event, Actor actor) {
+			root.setTouchable(Touchable.enabled);
+			root.setColor(0f, 0f, 0f, 1f);
+			popup.remove();
+		}
+	}
 
     @Override
 	public void render(float delta) {
