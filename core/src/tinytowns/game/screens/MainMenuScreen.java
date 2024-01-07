@@ -22,13 +22,14 @@ public class MainMenuScreen extends MenuScreen {
 		root.add(multiplayerButton);
 
 		root.row();
-		TextButton singleplayerButton = new TextButton("Singleplayer", skin);
+		TextButton singleplayerButton = new TextButton("Singleplayer variants", skin);
 		singleplayerButton.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				
 			}
 		});
+		root.add(singleplayerButton);
 
 		root.row();
 		TextButton quitButton = new TextButton("Quit game", skin);
