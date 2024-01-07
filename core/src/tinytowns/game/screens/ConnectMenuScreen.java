@@ -5,7 +5,6 @@ import com.badlogic.gdx.Net.Protocol;
 import com.badlogic.gdx.net.Socket;
 import com.badlogic.gdx.net.SocketHints;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -25,17 +24,19 @@ import tinytowns.game.TinyTowns;
 public class ConnectMenuScreen extends MenuScreen {
 	private TextField tokenField;
 	private TextField urlField;
+	private TextField nameField;
 
 	public ConnectMenuScreen(TinyTowns game) {
 		super(game);
 
 		tokenField = new TextField("", skin);
 		urlField = new TextField("", skin);
+		nameField = new TextField("", skin);
 		TextButton startServerButton = new TextButton("Start server with token", skin);
 		TextButton joinServerButton = new TextButton("Join server at URL", skin);
 		TextButton backButton = new TextButton("Cancel", skin);
-		tokenField.addListener(new ConnectFieldAndButtonListener(startServerButton, tokenField));
-		urlField.addListener(new ConnectFieldAndButtonListener(joinServerButton, urlField));
+		tokenField.addListener(new ConnectFieldAndButtonListener(startServerButton, tokenField, nameField));
+		urlField.addListener(new ConnectFieldAndButtonListener(joinServerButton, urlField, nameField));
 		startServerButton.addListener(new StartServerButtonListener());
 		startServerButton.setDisabled(true);
 		joinServerButton.addListener(new JoinServerButtonListener());
@@ -52,6 +53,8 @@ public class ConnectMenuScreen extends MenuScreen {
 		root.row();
 		root.add(new Label("URL:", skin));
 		root.add(urlField);
+		root.row();
+		root.add(new Label("Your name", skin));
 		root.row();
 		root.add(startServerButton);
 		root.add(joinServerButton);
@@ -83,8 +86,8 @@ public class ConnectMenuScreen extends MenuScreen {
 					.withAddr(9021)
 					.build();
 				Tunnel tunnel = client.connect(createTunnel);
-				game.setNgrokClient(client);
-				game.setScreen(new LobbyHostScreen(game, tunnel.getPublicUrl()));
+				game.setNgrok(client);
+				game.setScreen(new LobbyHostScreen(game, tunnel.getPublicUrl(), nameField.getText()));
 				dispose();
 			} catch (NgrokException ne) {
 				Table popup = startPopup();
@@ -142,32 +145,31 @@ public class ConnectMenuScreen extends MenuScreen {
 	}
 
 	private class ConnectFieldAndButtonListener extends ChangeListener {
-		private TextField field;
+		private TextField[] fields;
 		private TextButton button;
 
-		public ConnectFieldAndButtonListener(TextButton button, TextField field) {
-			this.field = field;
+		public ConnectFieldAndButtonListener(TextButton button, TextField... fields) {
+			this.fields = fields;
 			this.button = button;
 		}
 
 		@Override
 		public void changed(ChangeEvent event, Actor actor) {
-			button.setDisabled(field.getText().length() == 0);
+			button.setDisabled(false);
+			for (TextField f : fields)
+				if (f.getText().length() == 0)
+					button.setDisabled(true);
 		}
 	}
 
-	private class PopupBackButtonListener extends ChangeListener {
-		private Table popup;
-
+	private class PopupBackButtonListener extends MenuScreen.PopupBackButtonListener {
 		public PopupBackButtonListener(Table popup) {
-			this.popup = popup;
+			super(popup);
 		}
 
 		@Override
 		public void changed(ChangeEvent event, Actor actor) {
-			root.setTouchable(Touchable.enabled);
-			root.setColor(0f, 0f, 0f, 1f);
-			popup.remove();
+			super.changed(event, actor);
 			tokenField.setDisabled(false);
 			urlField.setDisabled(false);
 		}
