@@ -20,8 +20,6 @@ import com.badlogic.gdx.utils.ObjectIntMap;
 import com.badlogic.gdx.utils.ObjectIntMap.Entry;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import tinytowns.game.TinyTowns;
-
 public abstract class MenuScreen extends AbstractScreen {
     protected Skin skin;
     protected Stage stage;
@@ -36,9 +34,7 @@ public abstract class MenuScreen extends AbstractScreen {
     private float rotation;
     private int screenHeight;
 
-    public MenuScreen(TinyTowns game) {
-        super(game);
-
+    public MenuScreen() {
         skin = new Skin(Gdx.files.internal("holoui-light/Holo-light-ldpi.json"));
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);

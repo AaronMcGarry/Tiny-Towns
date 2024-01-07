@@ -6,12 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-import tinytowns.game.TinyTowns;
-
 public class MainMenuScreen extends MenuScreen {
-	public MainMenuScreen(TinyTowns game) {
-		super(game);
-
+	public MainMenuScreen() {
 		root.add(new Label("Tiny Towns", skin));
 
 		root.row();
@@ -19,7 +15,7 @@ public class MainMenuScreen extends MenuScreen {
 		multiplayerButton.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				game.setScreen(new ConnectMenuScreen(game));
+				game.setScreen(new ConnectMenuScreen());
 				dispose();
 			}
 		});

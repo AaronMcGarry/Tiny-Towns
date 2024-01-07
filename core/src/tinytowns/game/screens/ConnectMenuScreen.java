@@ -19,16 +19,12 @@ import com.github.alexdlaird.ngrok.protocol.CreateTunnel;
 import com.github.alexdlaird.ngrok.protocol.Proto;
 import com.github.alexdlaird.ngrok.protocol.Tunnel;
 
-import tinytowns.game.TinyTowns;
-
 public class ConnectMenuScreen extends MenuScreen {
 	private TextField tokenField;
 	private TextField urlField;
 	private TextField nameField;
 
-	public ConnectMenuScreen(TinyTowns game) {
-		super(game);
-
+	public ConnectMenuScreen() {
 		tokenField = new TextField("", skin);
 		urlField = new TextField("", skin);
 		nameField = new TextField("", skin);
@@ -87,7 +83,8 @@ public class ConnectMenuScreen extends MenuScreen {
 					.build();
 				Tunnel tunnel = client.connect(createTunnel);
 				game.setNgrok(client);
-				game.setScreen(new LobbyHostScreen(game, tunnel.getPublicUrl(), nameField.getText()));
+				players.add(nameField.getText());
+				game.setScreen(new LobbyHostScreen(tunnel.getPublicUrl()));
 				dispose();
 			} catch (NgrokException ne) {
 				Table popup = startPopup();
@@ -178,7 +175,7 @@ public class ConnectMenuScreen extends MenuScreen {
 	private class BackToMainMenuListener extends ChangeListener {
 		@Override
 		public void changed(ChangeEvent event, Actor actor) {
-			game.setScreen(new MainMenuScreen(game));
+			game.setScreen(new MainMenuScreen());
 			dispose();
 		}
 	}
